@@ -16,10 +16,12 @@ async def root():
 # ── CHARACTER ─────────────────────────────────────────────────────────────────
 @app.get("/character", response_model=list[CharacterID], tags=["Character"])
 async def show_characters():
-    return show_characters()
+    return showCharacters()
 
 @app.post("/character", response_model=list[CharacterID], tags=["Character"])
 async def create_character(character:CharacterBase):
-    return create_character(character)
+    return createCharacter(character)
 
-models finished gotta keep movin up with the endpoints
+@app.get("/character/filter/class", response_model=list[CharacterID], tags=["Character"])
+async def filter_characters(characters_class: str):
+    return filterCharacters(characters_class)
