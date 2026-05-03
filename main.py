@@ -56,3 +56,4 @@ async def delete_character(id: int):
         raise HTTPException(status_code=404, detail=f"{id} Character not found")
     return deleted
 
+# ── WEAPON────────────────────────────────────────────────────────
