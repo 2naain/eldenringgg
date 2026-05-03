@@ -1,7 +1,8 @@
 from fastapi import FastAPI, HTTPException
 
-from models import CharacterUpdate, WeaponBase
-
+from models.character import CharacterBase, CharacterID, CharacterUpdate
+from models.weapon import  WeaponBase, WeaponID, WeaponUpdate
+from models.build import BuildBase, BuildID, BuildUpdate
 app = FastAPI(
     title="Elden Ring  API",
     description="Elden Ring build manager API",
@@ -99,3 +100,45 @@ async def delete_weapon(id: int):
 
 
 # ── BUILD ─────────────────────────────────────────────────────────────────────
+
+@app.post("/build", response_model=BuildID, tags=["Builds"])
+async def create_build(build: BuildBase):
+    if not findCharacter(build.character_id):
+        raise HTTPException(status_code=404, detail=f"Character {build.character_id} not found")
+    if not findWeapon(build.weapon_id):
+        raise HTTPException(status_code=404, detail=f"Weapon {build.weapon_id} not found")
+    return createBuild(build)
+
+
+@app.get("/build", response_model=list[BuildID], tags=["Builds"])
+async def show_builds():
+    return showBuilds()
+
+
+@app.get("/build/filter/focus", response_model=list[BuildID], tags=["Builds"])
+async def filter_builds(focus: str):
+    return filterBuildsByFocus(focus)
+
+
+@app.get("/build/{id}", response_model=BuildID, tags=["Builds"])
+async def show_build(id: int):
+    build = findBuild(id)
+    if not build:
+        raise HTTPException(status_code=404, detail=f"{id} Build not found")
+    return build
+
+
+@app.patch("/build/{id}", response_model=BuildID, tags=["Builds"])
+async def update_build(id: int, build: BuildUpdate):
+    updated = updateBuild(id, build)
+    if not updated:
+        raise HTTPException(status_code=404, detail=f"{id} Build not found")
+    return updated
+
+
+@app.delete("/build/{id}", response_model=BuildID, tags=["Builds"])
+async def delete_build(id: int):
+    deleted = deleteBuild(id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail=f"{id} Build not found")
+    return deleted
