@@ -16,13 +16,13 @@ async def root():
 
 
 # ── CHARACTER ─────────────────────────────────────────────────────────────────
+@app.post("/character", response_model=list[CharacterID], tags=["Character"])
+async def create_character(character: CharacterBase):
+    return createCharacter(character)
+
 @app.get("/character", response_model=list[CharacterID], tags=["Character"])
 async def show_characters():
     return showCharacters()
-
-@app.post("/character", response_model=list[CharacterID], tags=["Character"])
-async def create_character(character:CharacterBase):
-    return createCharacter(character)
 
 @app.get("/character/filter/class", response_model=list[CharacterID], tags=["Character"])
 async def filter_characters(characters_class: str):
