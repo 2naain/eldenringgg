@@ -21,3 +21,5 @@ async def show_characters():
 @app.post("/character", response_model=list[CharacterID], tags=["Character"])
 async def create_character(character:CharacterBase):
     return create_character(character)
+
+models finished gotta keep movin up with the endpoints
