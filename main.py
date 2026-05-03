@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 
-from models import CharacterUpdate
+from models import CharacterUpdate, WeaponBase
 
 app = FastAPI(
     title="Elden Ring  API",
@@ -57,3 +57,45 @@ async def delete_character(id: int):
     return deleted
 
 # ── WEAPON────────────────────────────────────────────────────────
+@app.post("/weapon", response_model=WeaponID, tags=["Weapons"])
+async def create_weapon(weapon: WeaponBase):
+    return createWeapon(weapon)
+
+@app.get("/weapon", response_model=list[WeaponID], tags=["Weapons"])
+async def show_weapons():
+    return showWeapons()
+
+@app.get("/weapon/filter/Type", response_model=list[WeaponID], tags=["Weapons"])
+async def filter_weapons(weapon_type: str):
+    return filterWeaponsByType(weapon_type)
+
+@app.get("/weapon/search/name", response_model=WeaponID, tags=["Weapons"])
+async def search_weapon(name: str):
+    weapon= searchWeaponByName(name)
+    if not weapon:
+        raise HTTPException(status_code=404, detail=f"Weapon '{name}' not found")
+    return weapon
+
+@app.get("/weapon/{id}", response_model=WeaponID, tags=["Weapons"])
+async def show_weapon(id: int):
+    weapon= findWeapon(id)
+    if not weapon:
+        raise HTTPException(status_code=404, detail=f"'{id}' Weapon not found")
+    return weapon
+
+@app.patch("/weapon/{id}", response_model=WeaponID, tags=["Weapons"])
+async def update_weapon(id: int , weapon: WeaponUpdate):
+    updated = updateWeapon(id, weapon)
+    if not updated:
+        raise HTTPException(status_code=404, detail=f"Character '{id}' Character not found")
+    return updated
+
+@app.delete("/weapon/{id}", response_model=WeaponID, tags=["Weapons"])
+async def delete_weapon(id: int):
+    deleted = deleteWeapon(id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail=f"{id} Weapon not found")
+    return deleted
+
+
+# ── BUILD ─────────────────────────────────────────────────────────────────────
