@@ -7,7 +7,7 @@ class CharacterID(BaseModel):
     game: str | None = Field(default="Elden Ring")
 
 class CharacterID(CharacterBase):
-    id: int | None ) Field(default=None, gt=0)
+    id: int | None = Field(default=None, gt=0)
 
 class CharacterUpdate(CharacterBase):
         pass
