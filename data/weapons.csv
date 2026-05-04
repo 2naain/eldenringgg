@@ -1,2 +1,8 @@
 id,name,weapon_type,damage,scaling,active
 1,Uchigatana,katana,1000,Dex/Arc,True
+2,Moonveil,katana,1200,Int/Dex,True
+3,Reduvia,dagger,800,Dex/Arc,True
+4,Grafted Blade ,greatsword,1100,Str,True
+5,Bolt of Gransax,spear,2000,Dex/Str,True
+6,Dragon Halberd,halberd,1400,Str/Dex,True
+7,Rivers of Blood,katana,1500,Dex/Arc,True
