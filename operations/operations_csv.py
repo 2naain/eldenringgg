@@ -2,6 +2,7 @@ import csv
 import os
 
 CSV_DIR = "data"
+os.makedirs(CSV_DIR, exist_ok=True)
 
 CHARACTERS_CSV = os.path.join(CSV_DIR, "characters.csv")
 WEAPONS_CSV    = os.path.join(CSV_DIR, "weapons.csv")

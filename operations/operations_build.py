@@ -8,7 +8,7 @@ from operations.operations_csv import (
 def createBuild(build: BuildBase) -> BuildID:
     new_id = newID(BUILDS_CSV)
     new_build = BuildID(id=new_id, **build.model_dump())
-    row = new_build.model_dump()
+    row = new_build.model_dump(mode="json")
     row["active"] = "True"
     all_rows = read_all_rows(BUILDS_CSV, BUILDS_COLS)
     all_rows.append(row)
@@ -36,7 +36,7 @@ def updateBuild(id: int, data: BuildUpdate) -> Optional[BuildID]:
     updated = None
     for row in all_rows:
         if int(row["id"]) == id and row.get("active") == "True":
-            row.update({k: v for k, v in data.model_dump(exclude_unset=True).items()})
+            row.update({k: v for k, v in data.model_dump(mode="json", exclude_unset=True).items()})
             updated = BuildID(**strip_active(row))
     if updated:
         write_rows(BUILDS_CSV, BUILDS_COLS, all_rows)

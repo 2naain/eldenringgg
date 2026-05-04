@@ -10,7 +10,7 @@ from operations.operations_csv import (
 def createCharacter(character: CharacterBase) -> CharacterID:
     new_id = newID(CHARACTERS_CSV)
     new_char = CharacterID(id=new_id, **character.model_dump())
-    row = new_char.model_dump()
+    row = new_char.model_dump(mode="json")
     row["active"] = "True"
     all_rows = read_all_rows(CHARACTERS_CSV, CHARACTERS_COLS)
     all_rows.append(row)
@@ -35,7 +35,7 @@ def filterCharactersByClass(character_class: str) -> list[CharacterID]:
 
 def searchCharacterByName(name: str) -> Optional[CharacterID]:
     for char in showCharacters():
-        if char.name.lower() == name.lower():
+        if char.name and char.name.lower() == name.lower():
             return char
     return None
 
@@ -45,7 +45,7 @@ def updateCharacter(id: int, data: CharacterUpdate) -> Optional[CharacterID]:
     updated = None
     for row in all_rows:
         if int(row["id"]) == id and row.get("active") == "True":
-            row.update({k: v for k, v in data.model_dump(exclude_unset=True).items()})
+            row.update({k: v for k, v in data.model_dump(mode="json", exclude_unset=True).items()})
             updated = CharacterID(**strip_active(row))
     if updated:
         write_rows(CHARACTERS_CSV, CHARACTERS_COLS, all_rows)

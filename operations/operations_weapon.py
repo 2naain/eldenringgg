@@ -8,7 +8,7 @@ from operations.operations_csv import (
 def createWeapon(weapon: WeaponBase) -> WeaponID:
     new_id = newID(WEAPONS_CSV)
     new_wpn = WeaponID(id=new_id, **weapon.model_dump())
-    row = new_wpn.model_dump()
+    row = new_wpn.model_dump(mode="json")
     row["active"] = "True"
     all_rows = read_all_rows(WEAPONS_CSV, WEAPONS_COLS)
     all_rows.append(row)
@@ -33,7 +33,7 @@ def filterWeaponsByType(weapon_type: str) -> list[WeaponID]:
 
 def searchWeaponByName(name: str) -> Optional[WeaponID]:
     for wpn in showWeapons():
-        if wpn.name.lower() == name.lower():
+        if wpn.name and wpn.name.lower() == name.lower():
             return wpn
     return None
 
@@ -43,7 +43,7 @@ def updateWeapon(id: int, data: WeaponUpdate) -> Optional[WeaponID]:
     updated = None
     for row in all_rows:
         if int(row["id"]) == id and row.get("active") == "True":
-            row.update({k: v for k, v in data.model_dump(exclude_unset=True).items()})
+            row.update({k: v for k, v in data.model_dump(mode="json", exclude_unset=True).items()})
             updated = WeaponID(**strip_active(row))
     if updated:
         write_rows(WEAPONS_CSV, WEAPONS_COLS, all_rows)
