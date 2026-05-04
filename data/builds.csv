@@ -1,2 +1,7 @@
 id,character_id,weapon_id,focus,notes,active
 1,1,1,double uchi infused in occult,"With this one i beat the game recently, evaporates bosses with bleeding",True
+2,1,7,build para pvp,build con rivers of blood y light weight para PvP agresivo,True
+3,2,7,Arcane,Ashen Knight probando daga con bleed para invasiones,True
+4,3,6,Faith,Prophet Seluvis con Winged Scythe para build hibrida,True
+5,4,2,Intelligence,Bleed Enjoyer experimentando con katana magica,True
+6,5,3,Strength,Faith Healer con Greatsword para tanquear en coop,True
