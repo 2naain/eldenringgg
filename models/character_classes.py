@@ -1,6 +1,6 @@
 from enum import Enum
 
-class CharacterClass(Enum):
+class CharacterClass(str, Enum):
     VAGABOND = "vagabond"
     WARRIOR = "warrior"
     HERO = "hero"

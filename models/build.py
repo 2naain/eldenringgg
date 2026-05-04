@@ -6,8 +6,8 @@ class BuildBase(BaseModel):
     focus: str | None = Field(default=None, min_length=2, max_length=64)
     notes: str | None = Field(default="")
 
-class BuildID(BaseModel):
+class BuildID(BuildBase):
     id: int | None = Field(default=None, gt=0)
 
-class BuildUpdate(BaseModel):
+class BuildUpdate(BuildBase):
     pass
