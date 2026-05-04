@@ -1,0 +1,2 @@
+id,name,weapon_type,damage,scaling,active
+1,Uchigatana,katana,1000,Dex/Arc,True
