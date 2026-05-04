@@ -2,7 +2,8 @@ from fastapi import FastAPI, HTTPException
 
 from models.character import CharacterBase, CharacterID, CharacterUpdate
 from models.weapon import WeaponBase, WeaponID, WeaponUpdate
-from models.build import BuildBase, BuildID, BuildUpdate
+from models.build import BuildBase, BuildID, BuildUpdate, BuildDetail
+
 
 from operations.operations_character import (
     createCharacter, showCharacters, findCharacter,
@@ -17,8 +18,10 @@ from operations.operations_weapon import (
 from operations.operations_build import (
     createBuild, showBuilds, findBuild,
     updateBuild, deleteBuild,
-    filterBuildsByFocus
+    filterBuildsByFocus,
+    showBuildsDetail, findBuildDetail
 )
+
 
 app = FastAPI(
     title="Elden Ring Build API",
@@ -141,9 +144,9 @@ async def create_build(build: BuildBase):
     return createBuild(build)
 
 
-@app.get("/build", response_model=list[BuildID], tags=["Builds"])
+@app.get("/build", response_model=list[BuildDetail], tags=["Builds"])
 async def show_builds():
-    return showBuilds()
+    return showBuildsDetail()
 
 
 @app.get("/build/filter/focus", response_model=list[BuildID], tags=["Builds"])
@@ -151,9 +154,9 @@ async def filter_builds(focus: str):
     return filterBuildsByFocus(focus)
 
 
-@app.get("/build/{id}", response_model=BuildID, tags=["Builds"])
+@app.get("/build/{id}", response_model=BuildDetail, tags=["Builds"])
 async def show_build(id: int):
-    build = findBuild(id)
+    build = findBuildDetail(id)
     if not build:
         raise HTTPException(status_code=404, detail=f"{id} Build not found")
     return build

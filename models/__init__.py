@@ -3,4 +3,4 @@ from models.weapon import WeaponBase, WeaponID, WeaponUpdate
 from models.build import BuildBase, BuildID, BuildUpdate
 from models.character_classes import CharacterClass
 from models.weapon_types import WeaponType
-from typing import Optional
+from models.build import BuildDetail

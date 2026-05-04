@@ -53,3 +53,36 @@ def deleteBuild(id: int) -> Optional[BuildID]:
     if deleted:
         write_rows(BUILDS_CSV, BUILDS_COLS, all_rows)
     return deleted
+
+def showBuildsDetail() -> list[BuildDetail]:
+    from operations.operations_character import findCharacter
+    from operations.operations_weapon import findWeapon
+    result = []
+    for build in showBuilds():
+        character = findCharacter(build.character_id)
+        weapon = findWeapon(build.weapon_id)
+        result.append(BuildDetail(
+            id=build.id,
+            focus=build.focus,
+            notes=build.notes,
+            character_name=character.name if character else "Unknown",
+            weapon_name=weapon.name if weapon else "Unknown"
+        ))
+    return result
+
+
+def findBuildDetail(id: int) -> Optional[BuildDetail]:
+    from operations.operations_character import findCharacter
+    from operations.operations_weapon import findWeapon
+    build = findBuild(id)
+    if not build:
+        return None
+    character = findCharacter(build.character_id)
+    weapon = findWeapon(build.weapon_id)
+    return BuildDetail(
+        id=build.id,
+        focus=build.focus,
+        notes=build.notes,
+        character_name=character.name if character else "Unknown",
+        weapon_name=weapon.name if weapon else "Unknown"
+    )
