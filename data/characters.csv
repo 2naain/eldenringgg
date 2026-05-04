@@ -5,4 +5,4 @@ id,name,character_class,level,game,active
 4,Okina,samurai,120,Elden Ring,True
 5,Bernahl,hero,150,Elden Ring,True
 6,Goldmask,prophet,99,Elden Ring,True
-7,Gowry,astrologer,60,Elden Ring,True
+7,Gowry,astrologer,60,Elden Ring,False
