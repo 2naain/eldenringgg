@@ -1,8 +1,10 @@
 id,name,character_class,level,game,active
-1,2naain,samurai,713,Elden Ring,True
+1,2naain,samurai,713,Elden Ring,False
 2,Vyke,vagabond,160,Elden Ring,True
-3,Sellen,astrologer,80,Elden Ring,True
+3,ohara,hero,699,Elden Ring,True
 4,Okina,samurai,120,Elden Ring,True
 5,Bernahl,hero,150,Elden Ring,True
 6,Goldmask,prophet,99,Elden Ring,True
 7,Gowry,astrologer,60,Elden Ring,False
+8,Valetina,samurai,571,Elden Ring,True
+9,WorldHunter,warrior,713,Elden Ring,True

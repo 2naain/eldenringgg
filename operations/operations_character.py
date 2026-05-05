@@ -30,7 +30,11 @@ def findCharacter(id: int) -> Optional[CharacterID]:
 
 
 def filterCharactersByClass(character_class: str) -> list[CharacterID]:
-    return [c for c in showCharacters() if c.character_class == character_class]
+
+    valid_classes = [c.value for c in CharacterClass]
+    if character_class.lower() not in valid_classes:
+        return None
+    return [c for c in showCharacters() if c.character_class == character_class.lower()]
 
 
 def searchCharacterByName(name: str) -> Optional[CharacterID]:
@@ -61,4 +65,4 @@ def deleteCharacter(id: int) -> Optional[CharacterID]:
             deleted = CharacterID(**strip_active(row))
     if deleted:
         write_rows(CHARACTERS_CSV, CHARACTERS_COLS, all_rows)
-    return deleted
+    return deletedx
