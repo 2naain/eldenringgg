@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 
-from models.character import CharacterBase, CharacterID, CharacterUpdate
+from models.character import CharacterBase, CharacterID, CharacterUpdate, CharacterClass
 from models.weapon import WeaponBase, WeaponID, WeaponUpdate
 from models.build import BuildBase, BuildID, BuildUpdate, BuildDetail
 
@@ -47,11 +47,11 @@ async def show_characters():
     return showCharacters()
 
 
-@app.get("/character/filter/class", response_model=list[CharacterID], tags=["Character"])
+@app.get("/character/filter/class", response_model=list[CharacterID], tags=["Characters"])
 async def filter_characters(characters_class: str):
     result = filterCharactersByClass(characters_class)
     if result is None:
-        valid = [c.value for c in CharacterClass]
+        valid = [c.value for c in CharacterClass    ]
         raise HTTPException(
             status_code=400,
             detail=f"Character class '{characters_class}' does not exist. Valid classes: {valid}"
